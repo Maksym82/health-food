@@ -435,4 +435,9 @@ window.addEventListener("DOMContentLoaded", function () {
 			dots[slideIndex - 1].style.opacity = 1;
 		})
 	});
+
+	// Calc
+
+	const result = this.document.querySelector('.calculating__result span');
+	let sex, height, weight, age, ratio;
 });
