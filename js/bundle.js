@@ -331,22 +331,26 @@ function closeModal(modalSelector) {
     document.body.style.overflow = "";
 }
 
-function openModal(modalSelector) {
+function openModal(modalSelector, modalTimerId) {
     const modal = document.querySelector(modalSelector);
     modal.classList.add("show");
     modal.classList.remove("hide");
     document.body.style.overflow = "hidden";
-    clearInterval(modalTimerId);
+
+    console.log(modalTimerId);
+    if (modalTimerId) {
+        clearInterval(modalTimerId);
+    }
 }
 
-function modal(triggerSelector, modalSelector) {
+function modal(triggerSelector, modalSelector, modalTimerId) {
     // Modal
 
 	const modalTrigger = document.querySelectorAll(triggerSelector),
     modal = document.querySelector(modalSelector);
 
 modalTrigger.forEach((btn) => {
-    btn.addEventListener("click", () => openModal(modalSelector));
+    btn.addEventListener("click", () => openModal(modalSelector, modalTimerId));
 });
 
 
@@ -363,15 +367,12 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-const modalTimerId = setTimeout(openModal, 300000);
-// Изменил значение, чтобы не отвлекало
-
 function showModalByScroll() {
     if (
         window.pageYOffset + document.documentElement.clientHeight >=
         document.documentElement.scrollHeight
     ) {
-        openModal(modalSelector);
+        openModal(modalSelector, modalTimerId);
         window.removeEventListener("scroll", showModalByScroll);
     }
 }
@@ -757,9 +758,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener("DOMContentLoaded", function () {
+
+	const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 300000);
 	
 	(0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])();
-	(0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])("[data-modal]", ".modal");
+	(0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])("[data-modal]", ".modal", modalTimerId);
 	(0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])();
 	(0,_modules_cards__WEBPACK_IMPORTED_MODULE_3__["default"])();
 	(0,_modules_calc__WEBPACK_IMPORTED_MODULE_4__["default"])();
